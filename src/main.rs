@@ -124,7 +124,7 @@ async fn main() {
 				.long("address")
 				.value_name("ADDRESS")
 				.help("Sets address to listen on")
-				.default_value("0.0.0.0")
+				.default_value("127.0.0.1")
 				.num_args(1),
 		)
 		.arg(
@@ -320,7 +320,7 @@ async fn main() {
 	// Default service in case no routes match
 	app.at("/*").get(|req| error(req, "Nothing here".to_string()).boxed());
 
-	println!("Running Libreddit v{} on {}!", env!("CARGO_PKG_VERSION"), listener);
+	println!("Running Libreddit v{} on {}", env!("CARGO_PKG_VERSION"), listener);
 
 	let server = app.listen(listener);
 
