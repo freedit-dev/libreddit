@@ -137,7 +137,7 @@ impl RequestExt for Request<Body> {
 				.to_str()
 				.unwrap_or_default()
 				.split("; ")
-				.map(|cookie| Cookie::parse(cookie).unwrap_or_else(|_| Cookie::named("")))
+				.map(|cookie| Cookie::parse(cookie).unwrap_or_else(|_| Cookie::from("")))
 				.collect()
 		})
 	}
@@ -154,7 +154,7 @@ impl ResponseExt for Response<Body> {
 				.to_str()
 				.unwrap_or_default()
 				.split("; ")
-				.map(|cookie| Cookie::parse(cookie).unwrap_or_else(|_| Cookie::named("")))
+				.map(|cookie| Cookie::parse(cookie).unwrap_or_else(|_| Cookie::from("")))
 				.collect()
 		})
 	}
@@ -166,7 +166,7 @@ impl ResponseExt for Response<Body> {
 	}
 
 	fn remove_cookie(&mut self, name: String) {
-		let mut cookie = Cookie::named(name);
+		let mut cookie = Cookie::from(name);
 		cookie.set_path("/");
 		cookie.set_max_age(Duration::seconds(1));
 		if let Ok(val) = header::HeaderValue::from_str(&cookie.to_string()) {
@@ -348,10 +348,6 @@ fn determine_compressor(accept_encoding: String) -> Option<CompressionType> {
 	impl PartialOrd for CompressorCandidate {
 		fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
 			// Guard against NAN, both on our end and on the other.
-			if self.q.is_nan() || other.q.is_nan() {
-				return None;
-			};
-
 			// f64 and CompressionType are ordered, except in the case
 			// where the f64 is NAN (which we checked against), so we
 			// can safely return a Some here.

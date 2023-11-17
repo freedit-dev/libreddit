@@ -76,11 +76,11 @@ pub async fn set(req: Request<Body>) -> Result<Response<Body>, String> {
 	for &name in &PREFS {
 		match form.get(name) {
 			Some(value) => response.insert_cookie(
-				Cookie::build(name.to_owned(), value.clone())
+				Cookie::build((name.to_owned(), value.clone()))
 					.path("/")
 					.http_only(true)
 					.expires(OffsetDateTime::now_utc() + Duration::weeks(52))
-					.finish(),
+					.build(),
 			),
 			None => response.remove_cookie(name.to_string()),
 		};
@@ -115,11 +115,11 @@ fn set_cookies_method(req: Request<Body>, remove_cookies: bool) -> Response<Body
 	for name in [PREFS.to_vec(), vec!["subscriptions", "filters"]].concat() {
 		match form.get(name) {
 			Some(value) => response.insert_cookie(
-				Cookie::build(name.to_owned(), value.clone())
+				Cookie::build((name.to_owned(), value.clone()))
 					.path("/")
 					.http_only(true)
 					.expires(OffsetDateTime::now_utc() + Duration::weeks(52))
-					.finish(),
+					.build(),
 			),
 			None => {
 				if remove_cookies {
