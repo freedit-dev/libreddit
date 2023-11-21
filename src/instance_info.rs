@@ -87,7 +87,6 @@ pub(crate) struct InstanceInfo {
 	git_commit: String,
 	deploy_date: String,
 	compile_mode: String,
-	deploy_unix_ts: i64,
 	config: Config,
 }
 
@@ -96,12 +95,11 @@ impl InstanceInfo {
 		Self {
 			crate_version: env!("CARGO_PKG_VERSION").to_string(),
 			git_commit: env!("GIT_HASH").to_string(),
-			deploy_date: OffsetDateTime::now_local().unwrap_or_else(|_| OffsetDateTime::now_utc()).to_string(),
+			deploy_date: OffsetDateTime::now_utc().date().to_string(),
 			#[cfg(debug_assertions)]
 			compile_mode: "Debug".into(),
 			#[cfg(not(debug_assertions))]
 			compile_mode: "Release".into(),
-			deploy_unix_ts: OffsetDateTime::now_local().unwrap_or_else(|_| OffsetDateTime::now_utc()).unix_timestamp(),
 			config: CONFIG.clone(),
 		}
 	}
@@ -119,7 +117,6 @@ impl InstanceInfo {
 				["Crate version", &self.crate_version],
 				["Git commit", &self.git_commit],
 				["Deploy date", &self.deploy_date],
-				["Deploy timestamp", &self.deploy_unix_ts.to_string()],
 				["Compile mode", &self.compile_mode],
 				["SFW only", &convert(&self.config.sfw_only)],
 				["Pushshift frontend", &convert(&self.config.pushshift)],
@@ -154,7 +151,6 @@ impl InstanceInfo {
 					"Crate version: {}\n
                 Git commit: {}\n
                 Deploy date: {}\n
-                Deploy timestamp: {}\n
                 Compile mode: {}\n
 				SFW only: {:?}\n
 				Pushshift frontend: {:?}\n
@@ -175,7 +171,6 @@ impl InstanceInfo {
 					self.crate_version,
 					self.git_commit,
 					self.deploy_date,
-					self.deploy_unix_ts,
 					self.compile_mode,
 					self.config.sfw_only,
 					self.config.pushshift,
