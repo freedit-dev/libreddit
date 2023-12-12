@@ -167,6 +167,8 @@ async fn main() {
 	Lazy::force(&config::CONFIG);
 	Lazy::force(&instance_info::INSTANCE_INFO);
 
+	dbg!(&config::CONFIG);
+
 	// Define default headers (added to all responses)
 	app.default_headers = headers! {
 		"Referrer-Policy" => "no-referrer",

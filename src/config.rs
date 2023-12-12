@@ -67,6 +67,9 @@ pub struct Config {
 
 	#[serde(rename = "LIBREDDIT_PUSHSHIFT_FRONTEND")]
 	pub(crate) pushshift: Option<String>,
+
+	#[serde(rename = "LIBREDDIT_SOCKET_PROXY")]
+	pub(crate) socket_proxy: Option<String>,
 }
 
 impl Config {
@@ -99,6 +102,7 @@ impl Config {
 			default_disable_visit_reddit_confirmation: parse("LIBREDDIT_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION"),
 			banner: parse("LIBREDDIT_BANNER"),
 			pushshift: parse("LIBREDDIT_PUSHSHIFT_FRONTEND"),
+			socket_proxy: parse("LIBREDDIT_SOCKET_PROXY"),
 		}
 	}
 }
@@ -121,6 +125,7 @@ fn get_setting_from_config(name: &str, config: &Config) -> Option<String> {
 		"LIBREDDIT_DEFAULT_DISABLE_VISIT_REDDIT_CONFIRMATION" => config.default_disable_visit_reddit_confirmation.clone(),
 		"LIBREDDIT_BANNER" => config.banner.clone(),
 		"LIBREDDIT_PUSHSHIFT_FRONTEND" => config.pushshift.clone(),
+		"LIBREDDIT_SOCKET_PROXY" => config.socket_proxy.clone(),
 		_ => None,
 	}
 }

@@ -58,6 +58,9 @@
     },
     "LIBREDDIT_PUSHSHIFT_FRONTEND": {
       "required": false
+    },
+    "LIBREDDIT_SOCKET_PROXY": {
+      "required": false
     }
   }
 }
