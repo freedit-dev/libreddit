@@ -9,7 +9,7 @@ This is a fork of [Libreddit](https://github.com/libreddit/libreddit), aimed at 
 
 > [!TIP]
 > You can get a free socks5 proxy from [Cloudflare Warp](https://blog.cloudflare.com/announcing-warp-for-linux-and-proxy-mode/)
-> 1. install warp `sudo apt install cloudflare-warp`` or `sudo yum install cloudflare-warp`
+> 1. install warp `sudo apt install cloudflare-warp` or `sudo yum install cloudflare-warp`
 > 2. register warp `warp-cli register`
 > 3. set proxy mode `warp-cli set-mode proxy`
 > 4. start warp `warp-cli connect`
