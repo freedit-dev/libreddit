@@ -2,9 +2,30 @@
 
 > An alternative private front-end to Reddit
 
-# ⚠️ Why do I get TOO MANY REQUESTS errors? ⚠️
-## As of July 12th, 2023, Libreddit is currently not operational as Reddit's API changes, that were designed to kill third-party apps and content scrapers who don't pay [large fees](https://www.theverge.com/2023/5/31/23743993/reddit-apollo-client-api-cost), went into effect. [Read the full announcement here.](https://github.com/libreddit/libreddit/issues/840)
-## One of the project maintainers is working towards keeping this project alive to some extent: https://github.com/libreddit/libreddit/issues/836
+This is a fork of [Libreddit](https://github.com/libreddit/libreddit), aimed at solving the problem of public instances ip block by Reddit(https://github.com/libreddit/libreddit/issues/870#issuecomment-1852419464). It use a socks5 proxy to access Reddit, and at the moment the public instances could use Cloudflare Warp to access Reddit.
+
+> [!IMPORTANT]
+> You **MUST** use a socks5 proxy to use this fork.
+
+> [!TIP]
+> You can get a free socks5 proxy from [Cloudflare Warp](https://blog.cloudflare.com/announcing-warp-for-linux-and-proxy-mode/)
+> 1. install warp `sudo apt install cloudflare-warp`` or `sudo yum install cloudflare-warp`
+> 2. register warp `warp-cli register`
+> 3. set proxy mode `warp-cli set-mode proxy`
+> 4. start warp `warp-cli connect`
+> 5. get proxy address `warp-cli settings`, you will get something like `Mode: WarpProxy on port 40000`
+> 6. set proxy address in libreddit `export LIBREDDIT_SOCKET_PROXY=socks5://localhost:40000`
+
+> [!TIP]
+> You can also use [Tor](https://gitlab.torproject.org/tpo/core/arti) as a socks5 proxy.
+> 1. install Arti `git clone --depth=1 https://gitlab.torproject.org/tpo/core/arti.git && cd arti && cargo build --release`
+> 2. start Arti `target/release/arti -o address_filter.allow_onion_addrs=true proxy`
+> 3. set proxy address in libreddit `export LIBREDDIT_SOCKET_PROXY=socks5://localhost:9150`
+
+> [!NOTE]
+> There is libreddit fork with Tor support https://git.spec.cat/Nyaaori/libreddit , just build it with `cargo build --release` and ou can use it with Tor.
+
+I'm not familiar with Docker, so this fork doesn't support it. But you can see [this](https://github.com/libreddit/libreddit/issues/870#issuecomment-1856548416) for how to use Docker with this fork.
 
 ![screenshot](https://i.ibb.co/QYbqTQt/libreddit-rust.png)
 
